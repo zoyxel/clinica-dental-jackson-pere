@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dr. Jackson Perez U — Odontología Estética</title>
+<link rel="icon" href="logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --porcelain:#FFFFFF;
+    --porcelain-deep:#EEF2FA;
+    --ink:#14171F;
+    --moss:#1B3A8A;
+    --moss-dark:#10245C;
+    --rust:#9C7A1F;
+    --rust-dark:#7C6118;
+    --sand:#DCE3F0;
+    --muted:#5B6472;
+    --white:#FFFFFF;
+    --radius-s:6px;
+    --radius-m:14px;
+    --maxw:1180px;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--porcelain);
+    color:var(--ink);
+    font-family:'Inter',sans-serif;
+    font-size:16px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3{
+    font-family:'Newsreader',serif;
+    font-weight:500;
+    margin:0;
+    letter-spacing:-0.01em;
+  }
+  .mono{
+    font-family:'IBM Plex Mono',monospace;
+  }
+  a{color:inherit;text-decoration:none;}
+  img{max-width:100%;display:block;}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 32px;}
+  section{padding:104px 0;}
+  .eyebrow{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--rust);
+    margin-bottom:18px;
+    display:block;
+  }
+  button, .btn{
+    font-family:'Inter',sans-serif;
+    font-size:15px;
+    font-weight:500;
+    border:none;
+    cursor:pointer;
+    border-radius:999px;
+    padding:14px 28px;
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    transition:transform .18s ease, background .18s ease, color .18s ease;
+  }
+  .btn-primary{background:var(--rust);color:var(--white);}
+  .btn-primary:hover{background:var(--rust-dark);transform:translateY(-1px);}
+  .btn-secondary{background:transparent;color:var(--ink);border:1px solid var(--sand);}
+  .btn-secondary:hover{border-color:var(--moss);color:var(--moss-dark);}
+  :focus-visible{outline:2px solid var(--moss);outline-offset:3px;}
+
+  /* NAV */
+  header{
+    position:sticky;top:0;z-index:50;
+    background:rgba(238,241,238,0.86);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--sand);
+  }
+  nav{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:20px 32px;max-width:var(--maxw);margin:0 auto;
+  }
+  .brand{display:flex;flex-direction:column;line-height:1;}
+  .brand-name{font-family:'Newsreader',serif;font-size:22px;letter-spacing:0.02em;}
+  .brand-tag{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);margin-top:3px;}
+  .nav-links{display:flex;gap:36px;font-size:14.5px;}
+  .nav-links a{position:relative;padding:4px 0;}
+  .nav-links a::after{
+    content:'';position:absolute;left:0;bottom:0;width:0;height:1px;background:var(--moss);
+    transition:width .2s ease;
+  }
+  .nav-links a:hover::after{width:100%;}
+  .nav-cta{display:flex;align-items:center;gap:24px;}
+  .nav-toggle{display:none;background:none;border:none;padding:6px;}
+
+  /* HERO */
+  .hero{padding:88px 0 60px;}
+  .hero .wrap{display:grid;grid-template-columns:1.05fr 0.95fr;gap:56px;align-items:center;}
+  .hero h1{font-size:clamp(34px,4.2vw,54px);line-height:1.12;max-width:12ch;}
+  .hero-sub{max-width:46ch;color:var(--muted);font-size:17px;margin:22px 0 34px;}
+  .hero-actions{display:flex;flex-wrap:wrap;align-items:center;gap:20px;}
+  .hero-note{
+    margin-top:22px;font-family:'IBM Plex Mono',monospace;font-size:12.5px;
+    color:var(--moss-dark);display:flex;align-items:center;gap:8px;
+  }
+  .hero-note .dot{width:7px;height:7px;border-radius:50%;background:var(--rust);display:inline-block;
+    animation:pulse 2s infinite ease-in-out;}
+
+  .odonto-card{
+    background:var(--white);border:1px solid var(--sand);border-radius:var(--radius-m);
+    padding:28px 20px 20px;position:relative;
+  }
+  .odonto-card small{
+    font-family:'IBM Plex Mono',monospace;font-size:11px;text-transform:uppercase;
+    letter-spacing:0.1em;color:var(--muted);
+  }
+  #odontogram{width:100%;height:auto;overflow:visible;}
+  .tooth{fill:var(--porcelain-deep);stroke:var(--sand);stroke-width:1.5px;transition:fill .18s ease, stroke .18s ease;cursor:pointer;}
+  .tooth.is-active{fill:var(--rust);stroke:var(--rust-dark);}
+  .odonto-caption{
+    font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--muted);
+    text-align:center;margin-top:6px;min-height:18px;transition:color .18s ease;
+  }
+  .odonto-caption.is-active{color:var(--rust-dark);}
+
+  /* TRUST BAR */
+  .trust{border-top:1px solid var(--sand);border-bottom:1px solid var(--sand);}
+  .trust .wrap{
+    display:flex;justify-content:space-between;padding:26px 32px;flex-wrap:wrap;gap:16px;
+  }
+  .trust-item{
+    font-family:'IBM Plex Mono',monospace;font-size:12.5px;letter-spacing:0.05em;
+    color:var(--muted);text-transform:uppercase;
+    display:flex;align-items:baseline;gap:8px;
+  }
+  .trust-item b{font-family:'Newsreader',serif;font-size:20px;color:var(--ink);font-weight:500;letter-spacing:0;text-transform:none;}
+
+  /* SERVICES */
+  .services-head{max-width:56ch;margin-bottom:56px;}
+  .services-head h2{font-size:clamp(28px,3vw,38px);}
+  .services-head p{color:var(--muted);margin-top:14px;font-size:16px;}
+  .service-row{
+    display:grid;grid-template-columns:140px 1fr 1.3fr;gap:28px;align-items:center;
+    padding:28px 0;border-top:1px solid var(--sand);
+    transition:background .2s ease;
+  }
+  .service-row:last-child{border-bottom:1px solid var(--sand);}
+  .service-row.is-active{background:var(--porcelain-deep);}
+  .service-range{font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--rust);letter-spacing:0.02em;}
+  .service-title{font-family:'Newsreader',serif;font-size:22px;font-weight:500;}
+  .service-desc{color:var(--muted);font-size:15px;max-width:48ch;}
+
+  /* ABOUT */
+  .about{background:var(--moss-dark);color:var(--white);}
+  .about .wrap{display:grid;grid-template-columns:0.9fr 1.1fr;gap:64px;align-items:start;}
+  .about h2{color:var(--white);font-size:clamp(28px,3vw,38px);max-width:12ch;}
+  .about-copy{color:#C9D3CB;margin-top:20px;max-width:42ch;font-size:16px;}
+  .team-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+  .team-card{text-align:left;}
+  .team-photo{
+    aspect-ratio:1;border-radius:50%;background:linear-gradient(155deg,#2A4593,#0B1A44);
+    margin-bottom:16px;border:1px solid rgba(255,255,255,0.14);
+  }
+  .team-name{font-family:'Newsreader',serif;font-style:italic;font-size:19px;}
+  .team-role{font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:#B7C4E8;letter-spacing:0.06em;text-transform:uppercase;margin-top:4px;}
+
+  /* TESTIMONIALS */
+  .testimonials .wrap{display:grid;grid-template-columns:1fr 1fr;gap:48px;}
+  blockquote{margin:0;}
+  .quote-mark{font-family:'Newsreader',serif;font-size:64px;color:var(--rust);line-height:1;margin-bottom:8px;display:block;}
+  blockquote p{font-family:'Newsreader',serif;font-style:italic;font-size:22px;line-height:1.45;color:var(--ink);}
+  .quote-attr{margin-top:18px;font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:var(--muted);text-transform:uppercase;letter-spacing:0.05em;}
+
+  /* CTA BANNER */
+  .cta-banner{background:linear-gradient(135deg,var(--moss),var(--moss-dark));color:var(--white);text-align:center;}
+  .cta-banner h2{color:var(--white);font-size:clamp(28px,4vw,44px);max-width:16ch;margin:0 auto;}
+  .cta-banner .btn-primary{background:var(--rust);color:var(--white);margin-top:32px;}
+  .cta-banner .btn-primary:hover{background:var(--rust-dark);}
+
+  /* LOGO */
+  .brand-logo{height:56px;width:auto;display:block;}
+  .footer-logo{height:52px;width:auto;display:block;margin-bottom:14px;}
+
+  /* INSTAGRAM / VIDEO CARD */
+  .video-card{
+    background:var(--white);border:1px solid var(--sand);border-radius:var(--radius-m);
+    padding:20px;position:relative;
+  }
+  .video-card small{
+    font-family:'IBM Plex Mono',monospace;font-size:11px;text-transform:uppercase;
+    letter-spacing:0.1em;color:var(--muted);display:block;margin-bottom:14px;
+  }
+  .video-frame{
+    border-radius:var(--radius-s);overflow:hidden;background:var(--porcelain-deep);
+    display:flex;justify-content:center;min-height:420px;align-items:center;
+  }
+  .video-frame iframe, .video-frame blockquote{width:100% !important;max-width:100% !important;}
+
+  .odonto-standalone{max-width:420px;margin:0 auto 56px;}
+
+  /* FOOTER */
+  footer{padding:80px 0 40px;}
+  .footer-grid{display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;gap:40px;}
+  .footer-brand .brand-name{font-size:24px;}
+  .footer-note{color:var(--muted);font-size:13.5px;margin-top:14px;max-width:32ch;}
+  .footer-col h4{font-family:'IBM Plex Mono',monospace;font-size:11.5px;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);margin-bottom:14px;}
+  .footer-col div, .footer-col a{font-size:14.5px;margin-bottom:8px;color:var(--ink);}
+  .footer-col a:hover{color:var(--moss-dark);}
+  .footer-bottom{
+    margin-top:64px;padding-top:24px;border-top:1px solid var(--sand);
+    display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;
+    font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--muted);
+  }
+  .footer-template-note{
+    background:var(--porcelain-deep);border:1px dashed var(--sand);border-radius:var(--radius-s);
+    padding:14px 18px;font-size:13px;color:var(--muted);margin-top:24px;
+  }
+
+  /* Scroll reveal */
+  .reveal{opacity:0;transform:translateY(16px);transition:opacity .6s ease, transform .6s ease;}
+  .reveal.in-view{opacity:1;transform:translateY(0);}
+
+  @keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.35;}}
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation:none !important;transition:none !important;}
+    html{scroll-behavior:auto;}
+  }
+
+  @media (max-width:900px){
+    .nav-links{display:none;}
+    .hero .wrap{grid-template-columns:1fr;}
+    .about .wrap{grid-template-columns:1fr;}
+    .team-grid{grid-template-columns:1fr 1fr;}
+    .testimonials .wrap{grid-template-columns:1fr;}
+    .footer-grid{grid-template-columns:1fr 1fr;}
+    .service-row{grid-template-columns:1fr;gap:8px;}
+  }
+  @media (max-width:560px){
+    section{padding:72px 0;}
+    .trust .wrap{flex-direction:column;gap:14px;}
+    .team-grid{grid-template-columns:1fr;}
+    .footer-grid{grid-template-columns:1fr;}
+    .hero-actions{flex-direction:column;align-items:flex-start;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <div class="brand">
+      <img class="brand-logo" src="logo.png" alt="Dr. Jackson Perez U — Odontología Estética">
+    </div>
+    <div class="nav-links">
+      <a href="#tratamientos">Tratamientos</a>
+      <a href="#equipo">Equipo</a>
+      <a href="#testimonios">Testimonios</a>
+      <a href="#contacto">Contacto</a>
+    </div>
+    <div class="nav-cta">
+      <button class="btn btn-primary">Agendar cita</button>
+    </div>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <span class="eyebrow">Plantilla para clínicas dentales</span>
+      <h1>Cada sonrisa tiene una historia clínica distinta.</h1>
+      <p class="hero-sub">Un sitio pensado para clínicas que quieren verse tan cuidadas como tratan a sus pacientes — no otra plantilla genérica con ícono de diente.</p>
+      <div class="hero-actions">
+        <button class="btn btn-primary">Agendar diagnóstico</button>
+        <a href="#tratamientos" class="btn btn-secondary">Ver tratamientos</a>
+      </div>
+      <div class="hero-note"><span class="dot"></span> Próxima cita disponible: mañana, 10:00 a.m.</div>
+    </div>
+
+    <div class="video-card reveal">
+      <small>Mira nuestro trabajo</small>
+      <div class="video-frame">
+        <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/reel/DVr0IYJkZ-F/" data-instgrm-version="14" style="margin:0;width:100%;"></blockquote>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="trust">
+  <div class="wrap">
+    <div class="trust-item"><b>14</b> años de práctica</div>
+    <div class="trust-item"><b>2,300+</b> pacientes activos</div>
+    <div class="trust-item"><b>98%</b> vuelve por recomendación</div>
+  </div>
+</div>
+
+<section id="tratamientos">
+  <div class="wrap">
+    <div class="odonto-card odonto-standalone reveal">
+      <small>Mapa de tratamientos</small>
+      <svg id="odontogram" viewBox="0 0 440 180" aria-label="Odontograma interactivo de tratamientos"></svg>
+      <div class="odonto-caption" id="odontoCaption">Pasa el cursor sobre un diente</div>
+    </div>
+
+    <div class="services-head reveal">
+      <h2>Tratamientos, leídos como un odontograma</h2>
+      <p>Cada fila corresponde a una zona del mapa dental de arriba. Pasa el cursor sobre cualquiera de los dos para ver la relación.</p>
+    </div>
+
+    <div class="service-row reveal" data-group="incisivos">
+      <div class="service-range mono">11 · 12 · 21 · 22</div>
+      <div class="service-title">Estética y blanqueamiento</div>
+      <div class="service-desc">Diseño de sonrisa, carillas y blanqueamiento profesional para la zona más visible al hablar y sonreír.</div>
+    </div>
+    <div class="service-row reveal" data-group="caninos">
+      <div class="service-range mono">13 · 23</div>
+      <div class="service-title">Ortodoncia</div>
+      <div class="service-desc">Brackets, alineadores transparentes y seguimiento de mordida para una alineación funcional y estética.</div>
+    </div>
+    <div class="service-row reveal" data-group="premolares">
+      <div class="service-range mono">14 · 15 · 24 · 25</div>
+      <div class="service-title">Restauraciones y resinas</div>
+      <div class="service-desc">Resinas estéticas y restauraciones de precisión para piezas con desgaste, caries o fracturas leves.</div>
+    </div>
+    <div class="service-row reveal" data-group="molares">
+      <div class="service-range mono">16 · 17 · 18 · 26 · 27 · 28</div>
+      <div class="service-title">Implantes y endodoncia</div>
+      <div class="service-desc">Tratamiento de conducto e implantes de titanio para piezas posteriores con mayor exigencia funcional.</div>
+    </div>
+  </div>
+</section>
+
+<section class="about" id="equipo">
+  <div class="wrap">
+    <div class="reveal">
+      <span class="eyebrow" style="color:#D9C7A8">Sobre nosotros</span>
+      <h2>Un equipo, no un ícono de diente.</h2>
+      <p class="about-copy">Sustituye esta sección con las fotos y especialidades reales de tu equipo. La idea es que el paciente vea personas, no una plantilla — eso es lo que genera confianza antes de la primera cita.</p>
+    </div>
+    <div class="team-grid reveal">
+      <div class="team-card">
+        <div class="team-photo"></div>
+        <div class="team-name">Dra. [Nombre]</div>
+        <div class="team-role">Odontología general</div>
+      </div>
+      <div class="team-card">
+        <div class="team-photo"></div>
+        <div class="team-name">Dr. [Nombre]</div>
+        <div class="team-role">Ortodoncia</div>
+      </div>
+      <div class="team-card">
+        <div class="team-photo"></div>
+        <div class="team-name">Dra. [Nombre]</div>
+        <div class="team-role">Endodoncia</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="testimonials" id="testimonios">
+  <div class="wrap">
+    <blockquote class="reveal">
+      <span class="quote-mark">“</span>
+      <p>Fue la primera clínica donde entendí exactamente qué me estaban haciendo y por qué. Eso cambió cómo veo ir al dentista.</p>
+      <div class="quote-attr">— Paciente, tratamiento de ortodoncia</div>
+    </blockquote>
+    <blockquote class="reveal">
+      <span class="quote-mark">“</span>
+      <p>Reemplaza estas citas con reseñas reales de tus pacientes. Dos o tres bastan si son específicas y creíbles.</p>
+      <div class="quote-attr">— Nota para quien use esta plantilla</div>
+    </blockquote>
+  </div>
+</section>
+
+<section class="cta-banner">
+  <div class="wrap reveal">
+    <h2>Tu próxima cita empieza con una pregunta.</h2>
+    <button class="btn btn-primary">Escríbenos por WhatsApp</button>
+  </div>
+</section>
+
+<footer id="contacto">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img class="footer-logo" src="logo.png" alt="Dr. Jackson Perez U — Odontología Estética">
+        <p class="footer-note">Odontología estética — [Dirección de la clínica], [Ciudad]. Reemplaza este bloque con la información real del negocio.</p>
+        <div class="footer-template-note">Plantilla editable: cambia textos, fotos, colores y el nombre de la marca por los de cada cliente.</div>
+      </div>
+      <div class="footer-col">
+        <h4>Horario</h4>
+        <div>Lun – Vie: 8:00 – 18:00</div>
+        <div>Sáb: 9:00 – 13:00</div>
+        <div>Dom: Cerrado</div>
+      </div>
+      <div class="footer-col">
+        <h4>Contacto</h4>
+        <div>+00 000 0000000</div>
+        <div>contacto@clinica.com</div>
+      </div>
+      <div class="footer-col">
+        <h4>Síguenos</h4>
+        <a href="#">Instagram</a>
+        <a href="#">Facebook</a>
+        <a href="#">WhatsApp</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Dr. Jackson Perez U — Odontología Estética</span>
+      <span>Aviso de privacidad · Términos</span>
+    </div>
+  </div>
+</footer>
+
+<script async src="//www.instagram.com/embed.js"></script>
+<script>
+(function(){
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // ---- Build odontogram ----
+  var svg = document.getElementById('odontogram');
+  var caption = document.getElementById('odontoCaption');
+  var ns = 'http://www.w3.org/2000/svg';
+
+  var teeth = [
+    {num:17, group:'molares',    label:'Implantes y endodoncia', w:30, h:34},
+    {num:15, group:'premolares', label:'Restauraciones y resinas', w:24, h:32},
+    {num:13, group:'caninos',    label:'Ortodoncia', w:20, h:38},
+    {num:12, group:'incisivos',  label:'Estética y blanqueamiento', w:18, h:34},
+    {num:11, group:'incisivos',  label:'Estética y blanqueamiento', w:18, h:34},
+    {num:21, group:'incisivos',  label:'Estética y blanqueamiento', w:18, h:34},
+    {num:22, group:'incisivos',  label:'Estética y blanqueamiento', w:18, h:34},
+    {num:23, group:'caninos',    label:'Ortodoncia', w:20, h:38},
+    {num:25, group:'premolares', label:'Restauraciones y resinas', w:24, h:32},
+    {num:27, group:'molares',    label:'Implantes y endodoncia', w:30, h:34}
+  ];
+
+  var n = teeth.length;
+  var xStart = 30, xEnd = 410, baseY = 118, archDepth = 34;
+  var points = teeth.map(function(t, i){
+    var x = xStart + (i/(n-1)) * (xEnd - xStart);
+    var y = baseY - archDepth * Math.sin(Math.PI * i / (n-1));
+    return {x:x, y:y};
+  });
+
+  teeth.forEach(function(t, i){
+    var p = points[i];
+    var prev = points[i-1] || p;
+    var next = points[i+1] || p;
+    var angle = Math.atan2(next.y - prev.y, next.x - prev.x) * (180/Math.PI);
+
+    var g = document.createElementNS(ns,'g');
+    g.setAttribute('transform', 'translate(' + p.x + ',' + p.y + ') rotate(' + angle + ')');
+    g.setAttribute('tabindex', '0');
+    g.setAttribute('role', 'button');
+    g.setAttribute('aria-label', 'Diente ' + t.num + ' — ' + t.label);
+
+    var rect = document.createElementNS(ns,'rect');
+    rect.setAttribute('class','tooth');
+    rect.setAttribute('x', -t.w/2);
+    rect.setAttribute('y', -t.h/2);
+    rect.setAttribute('width', t.w);
+    rect.setAttribute('height', t.h);
+    rect.setAttribute('rx', 7);
+    rect.setAttribute('data-group', t.group);
+    rect.setAttribute('data-label', t.label);
+
+    var title = document.createElementNS(ns,'title');
+    title.textContent = 'Diente ' + t.num + ' — ' + t.label;
+
+    g.appendChild(rect);
+    g.appendChild(title);
+    svg.appendChild(g);
+
+    function activate(){
+      setActiveGroup(t.group, t.label);
+    }
+    function deactivate(){
+      setActiveGroup(null);
+    }
+    g.addEventListener('mouseenter', activate);
+    g.addEventListener('mouseleave', deactivate);
+    g.addEventListener('focus', activate);
+    g.addEventListener('blur', deactivate);
+  });
+
+  var serviceRows = document.querySelectorAll('.service-row');
+
+  function setActiveGroup(group, label){
+    document.querySelectorAll('.tooth').forEach(function(el){
+      el.classList.toggle('is-active', group && el.getAttribute('data-group') === group);
+    });
+    serviceRows.forEach(function(row){
+      row.classList.toggle('is-active', group && row.getAttribute('data-group') === group);
+    });
+    if (group){
+      caption.textContent = label;
+      caption.classList.add('is-active');
+    } else {
+      caption.textContent = 'Pasa el cursor sobre un diente';
+      caption.classList.remove('is-active');
+    }
+  }
+
+  serviceRows.forEach(function(row){
+    var group = row.getAttribute('data-group');
+    var label = row.querySelector('.service-title').textContent;
+    row.addEventListener('mouseenter', function(){ setActiveGroup(group, label); });
+    row.addEventListener('mouseleave', function(){ setActiveGroup(null); });
+  });
+
+  // ---- Scroll reveal ----
+  if (!reduceMotion && 'IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting){
+          entry.target.classList.add('in-view');
+          io.unobserve(entry.target);
+        }
+      });
+    }, {threshold:0.15});
+    document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+  } else {
+    document.querySelectorAll('.reveal').forEach(function(el){ el.classList.add('in-view'); });
+  }
+})();
+</script>
+
+</body>
+</html>
