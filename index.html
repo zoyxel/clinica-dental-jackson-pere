@@ -189,35 +189,23 @@
   .brand-logo{height:56px;width:auto;display:block;}
   .footer-logo{height:52px;width:auto;display:block;margin-bottom:14px;}
 
-  /* INSTAGRAM / VIDEO CARD */
-  .video-card{
-    background:var(--white);border:1px solid var(--sand);border-radius:var(--radius-m);
-    padding:20px;position:relative;
-  }
-  .video-card small{
-    font-family:'IBM Plex Mono',monospace;font-size:11px;text-transform:uppercase;
-    letter-spacing:0.1em;color:var(--muted);display:block;margin-bottom:14px;
-  }
-  /* Marco del video: proporción 9:16 fija (formato Reel), rellena sin barras ni deformar */
-  .video-frame{
-    position:relative;
+  /* INSTAGRAM EMBED LIMPIO — sin marco, sin sombra, sin fondo extra */
+  .ig-embed-wrap{
+    max-width:400px;
+    min-width:326px;
     width:100%;
-    max-width:340px;
-    aspect-ratio:9 / 16;
     margin:0 auto;
-    border-radius:var(--radius-s);
     overflow:hidden;
-    background:var(--porcelain-deep);
+    border-radius:12px;
+    box-shadow:none;
+    background:transparent;
   }
-  .video-frame-iframe{
-    position:absolute;
-    inset:0;
-    width:100%;
-    height:100%;
-    border:0;
-    outline:none;
-    object-fit:cover; /* recorta el encuadre sin estirar el video */
-    object-position:center; /* ajustá si se pierde contenido importante arriba/abajo */
+  .ig-embed-wrap .instagram-media{
+    margin:0 auto !important;
+    min-width:0 !important;
+    max-width:100% !important;
+    box-shadow:none !important;
+    border:none !important;
   }
 
   .odonto-standalone{max-width:420px;margin:0 auto 56px;}
@@ -301,14 +289,14 @@
       <div class="hero-note"><span class="dot"></span> Próxima cita disponible: mañana, 10:00 a.m.</div>
     </div>
 
-    <div class="video-card reveal">
-      <small>Mira nuestro trabajo</small>
-      <div class="video-frame">
-        <iframe class="video-frame-iframe" allowtransparency="true" frameborder="0" scrolling="no"
-                width="340" height="605"
-                src="https://www.instagram.com/reel/DVr0IYJkZ-F/embed"
-                title="Reel Dr. Jackson Odontología"></iframe>
-      </div>
+    <div class="ig-embed-wrap reveal">
+      <blockquote
+        class="instagram-media"
+        data-instgrm-permalink="https://www.instagram.com/reel/DVr0IYJkZ-F/"
+        data-instgrm-version="14"
+        data-instgrm-captioned="false"
+        style="margin:0 auto;">
+      </blockquote>
     </div>
   </div>
 </section>
@@ -552,5 +540,6 @@
 })();
 </script>
 
+<script async src="//www.instagram.com/embed.js"></script>
 </body>
 </html>
