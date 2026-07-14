@@ -189,29 +189,32 @@
   .brand-logo{height:56px;width:auto;display:block;}
   .footer-logo{height:52px;width:auto;display:block;margin-bottom:14px;}
 
-  /* INSTAGRAM EMBED LIMPIO — sin marco, sin sombra, sin fondo extra */
   /* Contenedor con proporción 9:16 exacta — el overflow:hidden esconde los marcos negros */
-  .ig-embed-wrap{
-    position:relative;
-    width:100%;
-    max-width:340px;
-    aspect-ratio:9 / 16;
-    margin:0 auto;
-    border-radius:12px;
-    overflow:hidden;
-    background:#000;
-    box-shadow:none;
-  }
-  /* Scale(1.15): zoom que "come" los marcos negros que Instagram inyecta en los bordes */
-  .ig-embed-wrap iframe{
-    position:absolute !important;
-    top:50% !important;
-    left:50% !important;
-    transform:translate(-50%, -50%) scale(1.15) !important;
-    width:100% !important;
-    height:100% !important;
-    border:none !important;
-  }
+.ig-embed-wrap {
+  position: relative;
+  width: 100%;
+  max-width: 340px;
+  aspect-ratio: 9 / 16;
+  margin: 0 auto;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #000;
+  box-shadow: none;
+}
+
+/* Aplicamos el zoom de forma segura solo cuando el iframe de Instagram ya se renderizó */
+.ig-embed-wrap iframe.instagram-media-rendered,
+.ig-embed-wrap iframe {
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) scale(1.18) !important; /* Zoom controlado para comerse los bordes */
+  width: 100% !important;
+  height: 125% !important; /* Le damos altura extra para que el script no colapse */
+  min-height: 100% !important;
+  border: none !important;
+  margin: 0 !important;
+}
   /* Neutraliza estilos que Instagram inyecta en el blockquote */
   .ig-embed-wrap .instagram-media{
     margin:0 !important;
